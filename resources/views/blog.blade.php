@@ -12,10 +12,16 @@
         content="ie=edge"
     >
     <title>Document</title>
+    <link
+        rel="stylesheet"
+        href="/app.css"
+    >
 </head>
 
 <body>
-    <h1>Fourth blog</h1>
+    <div class="container">
+        {!!$blog!!}
+    </div>
 </body>
 
 </html>
