@@ -3,28 +3,37 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\File;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class Blog
 {
+
+    public function __construct(public $title, public $slug, public $intro, public $created_at, public $body)
+    {
+    }
 
     public static function all()
     {
         $blogs = File::files(resource_path('/blogs'));
         $blogContents = array_map(function ($blog) {
-            return $blog->getContents();
-        }, $blogs);
-        return $blogContents;
+            $content = $blog->getContents();
+            $yaml = YamlFrontMatter::parse($content);
+
+            return new Blog($yaml->title, $yaml->slug, $yaml->intro, $yaml->created_at, $yaml->body());
+        }, $blogs); //[blogObj,blogObj]
+        return collect($blogContents); //collection
     }
 
-    public static function find($filename)
+    public static function find($slug)
     {
-        $path = resource_path('/blogs/' . $filename . '.html');
-        if (!File::exists($path)) {
+        return static::all()->firstWhere('slug', $slug); //return null
+    }
+
+    public static function findOrFail($slug)
+    {
+        if (!$blog = static::find($slug)) {
             abort(404);
         }
-        $blog = cache()->remember('blog_' . $filename, now()->addSeconds(10), function () use ($path) {
-            return file_get_contents($path);
-        });
         return $blog;
     }
 }

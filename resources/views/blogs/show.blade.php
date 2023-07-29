@@ -14,17 +14,18 @@
     <title>Document</title>
     <link
         rel="stylesheet"
-        href="{{ asset('/app.css') }}"
+        href="/app.css"
     >
 </head>
 
 <body>
     <div class="container">
-        <?php foreach($blogs as $blog) : ?>
-        {!! $blog !!}
-        <?php endforeach; ?>
+        <h1>{{$blog->title}}</h1>
+        <p>
+            {!!$blog->body!!}
+        </p>
+        <p>published at - {{$blog->created_at}}</p>
     </div>
-    <script src="{{asset('/js/app.js')}}"></script>
 </body>
 
 </html>

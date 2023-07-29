@@ -14,14 +14,21 @@
     <title>Document</title>
     <link
         rel="stylesheet"
-        href="/app.css"
+        href="{{ asset('/app.css') }}"
     >
 </head>
 
 <body>
     <div class="container">
-        {!!$blog!!}
+        <?php foreach($blogs as $blog) : ?>
+        <h1><a href="/blogs/{{$blog->slug}}">{{$blog->title}}</a></h1>
+        <p>
+            {!!$blog->body!!}
+        </p>
+        <p>published at - {{$blog->created_at}}</p>
+        <?php endforeach; ?>
     </div>
+    <script src="{{asset('/js/app.js')}}"></script>
 </body>
 
 </html>

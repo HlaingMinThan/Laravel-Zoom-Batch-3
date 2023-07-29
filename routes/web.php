@@ -1,19 +1,11 @@
 <?php
 
-use App\Models\Blog;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home', [
-        'blogs' => Blog::all()
-    ]);
-});
-
-Route::get('/blogs/{filename}', function ($filename) {
-    return view('blog', [
-        'blog' => Blog::find($filename)
-    ]);
-});
+//resource - blog
+Route::get('/', [BlogController::class, 'index']);
+Route::get('/blogs/{slug}', [BlogController::class, 'show']);
 
 Route::get('/about-us', function () {
     $name = "hlaing min than";
