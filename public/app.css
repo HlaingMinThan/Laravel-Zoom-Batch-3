@@ -2,3 +2,10 @@
     margin: auto;
     max-width: 600px;
 }
+
+.bg-yellow {
+    background-color: yellow;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 20px;
+}

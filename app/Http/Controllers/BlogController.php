@@ -14,10 +14,10 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show($slug)
+    public function show(Blog $blog)
     {
         return view('blogs.show', [
-            'blog' => Blog::findOrFail($slug)
+            'blog' => $blog
         ]);
     }
 }
