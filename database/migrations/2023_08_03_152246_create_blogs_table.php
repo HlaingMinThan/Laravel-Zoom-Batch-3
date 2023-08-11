@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title'); // 255
             $table->text('body');
+            $table->text('reading_time')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->timestamps(); //created_at,updated_at
         });
     }
